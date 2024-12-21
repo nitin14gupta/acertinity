@@ -5,7 +5,7 @@ import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 
 export function AppleCardsCarouselDemo() {
   const [cards, setCards] = useState([]);
-  const [selectedService, setSelectedService] = useState(null); // State to store selected service
+  const [selectedService, setSelectedService] = useState(null);
 
   const baseImageUrl = "https://templet-backend-server.onrender.com";
 
@@ -20,6 +20,7 @@ export function AppleCardsCarouselDemo() {
           src: `${baseImageUrl}${service.images[0].image}`,
           images: service.images,
           description: service.description,
+          id: service.id,
         }));
         setCards(dynamicCards);
       } catch (error) {
@@ -43,7 +44,7 @@ export function AppleCardsCarouselDemo() {
       key={index}
       card={card}
       index={index}
-      onClick={() => handleCardClick(card)} // Pass the whole card data
+      onClick={() => handleCardClick(card)}
     />
   ));
 
@@ -54,7 +55,6 @@ export function AppleCardsCarouselDemo() {
       </h2>
       <Carousel items={renderedCards} />
 
-      {/* Modal for displaying images */}
       {selectedService && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg w-3/4 h-3/4 overflow-auto">
@@ -69,7 +69,7 @@ export function AppleCardsCarouselDemo() {
               {selectedService.images.map((image, index) => (
                 <Image
                   key={index}
-                  src={`${baseImageUrl}${image.image}`} // Fetch each image
+                  src={`${baseImageUrl}/api/services/id/image/${image.image}`}
                   alt={`Image ${index + 1}`}
                   width={500}
                   height={500}
